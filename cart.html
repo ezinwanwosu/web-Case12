@@ -7,8 +7,13 @@
 </head>
 <body>
     <div class="cart-container">
+        <a href="index.html" class="back-btn">Back</a>
         <h1>Your Basket</h1>
         <ul id="cart-items"></ul>
+        <div class="cart-summary">
+            <p><strong>Total Time:</strong><span id="total-time">0 mins</span></p>
+            <p><strong>Total Price:</strong><span id="total-price">0.00</span></p>
+          </div>
         <button id="checkout-btn">Checkout</button>
     </div>
     <script src="https://js.stripe.com/v3/"></script>
