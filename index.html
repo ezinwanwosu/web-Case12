@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yonce's Acrylics</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header>
+        <div class="cart-icon" onclick="location.href='cart.html'">🛒</div>
+    </header>
+    
+  <section class="search-bar">
+    <input type="text" id="service-search" placeholder="Search for a service..." />
+    <ul id="suggestions" class="suggestions"></ul>
+  </section>
+
+  <section class="services-container" id="services-container"></section>
+
+  <!-- Popup Modal -->
+  <div id="popup" class="popup hidden">
+    <div class="popup-content">
+      <span id="popup-close">&times;</span>
+      <h2 id="popup-name"></h2>
+      <p id="popup-price"></p>
+      <p id="popup-time"></p>
+      <button id="add-to-basket">Add to Basket</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+/* Basic layout and reset */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 2rem;
+    background-color: #fff0f5;
+    box-sizing: border-box;
+  }
+  
+  /* Search bar */
+  .search-bar {
+    position: relative;
+    max-width: 400px;
+    margin: 1rem auto 2rem;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  .suggestions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    position: absolute;
+    width: 100%;
+    background: white;
+    z-index: 10;
+  }
+  
+  .suggestions li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .suggestions li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Services grid */
+  .services-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 3rem;
+  }
+  
+  /* Service card */
+  .service-card {
+    background-color: #ffd6e8;
+    border-radius: 16px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  
+  .service-card:hover {
+    transform: scale(1.03);
+  }
+  
+  .service-card h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: black;
+  }
+  
+  .service-card p {
+    margin-top: 8px;
+    color: gray;
+    font-size: 0.9rem;
+  }
+  
+  /* Popup styling */
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+  }
+  
+  .popup-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+  }
+  
+  #popup-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  .cart-icon {
+    position: fixed;
+    top: 10px;
+    right: 15px;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+#add-to-basket.added {
+    background-color: #ff32c8 !important;
+    color: white;
+  }
+  
+
+  
