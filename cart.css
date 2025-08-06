@@ -30,6 +30,7 @@ body {
 #cart-items {
     list-style: none;
     padding: 0;
+    text-align: center;
 }
 
 #cart-items li {
