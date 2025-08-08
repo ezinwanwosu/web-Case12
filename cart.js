@@ -68,17 +68,19 @@ document.addEventListener('DOMContentLoaded', () => {
   checkoutBtn.addEventListener('click', async () => {
     const date = localStorage.getItem("selectedDate");
     const time = localStorage.getItem("selectedTime");
-    console.log("Checkout clicked")
+    console.log("Checkout clicked");
     const data = {
       appointment_date: `${date} ${time}`
     };
 
     try {
+ 
       const res = await fetch("https://yoncesacrylicss.onrender.com/store-booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
       });
+      console.log("no error");
       if (!res.ok) throw new Error('Failed to store booking');
 
       localStorage.removeItem('cart');
@@ -88,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Redirect to Stripe
       window.location.href = "https://buy.stripe.com/eVqdR93nd2Ptfes3lO6wE00";
     } catch (err) {
+      console.log("error error");
       alert('Error saving booking. Please try again.');
       console.error(err);
     }
