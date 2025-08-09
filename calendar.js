@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   // 🔁 Fetch availability data from backend
   async function loadAvailability() {
     try {
-      const res = await fetch('https://private2-uzol.onrender.com/api/availability', {
+      const res = await fetch('https://private2-uzol.onrender.com/get-availability', {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer von-UDBNdsjf-4nfd!f9'
