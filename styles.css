@@ -181,4 +181,10 @@ body {
   #slot-list li:hover {
     background: #ffcce6;
   }
-  
+#addons-list{
+  text-align: left;
+}
+.title-set{
+  text-align: center;
+  font-size: 26px;
+}

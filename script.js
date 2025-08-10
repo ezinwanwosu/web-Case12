@@ -1,190 +1,189 @@
-
-const services = [
-{ name: "Long set", price: "£40", time: "2h 15m" },
-{ name: "Medium set", price: "£35", time: "2h" },
-{ name: "Short set", price: "£30", time: "1h 30m" },
-{ name: "Acrylic overlay", price: "£30", time: "1h 30m" },
-{ name: "XL set", price: "£45", time: "1h 30m" },
-{ name: "XXL set", price: "£50", time: "1h 30m" },
-{ name: "Acrylic toes", price: "£25", time: "1h 45m" },
-{ name: "Gel toes", price: "£20", time: "1h 45m" },
-{ name: "Acrylic Big Toes", price: "£10", time: "1h 30m" },
-{ name: "Biab", price: "£25", time: "1h 30m" },
-{ name: "Gel mani", price: "£25", time: "1h 15m" },
-{ name: "freestyle", price: "£10", time: "1h" },
-{ name: "recreation", price: "Email me", time: "1h" },
-{ name: "Soak offs (my work)", price: "£10", time: "45m" },
-{ name: "Soak offs (not my work)", price: "£15", time: "45m" },
-{ name: "Infills", price: "£28", time: "1h 45m" },
-{ name: "French nail", price: "£0", time: "15m" },
-{ name: "Plain colour", price: "£0", time: "10m" },
-{ name: "Charms", price: "£1 per nail", time: "—" },
-{ name: "Drawn designs", price: "£0.50–£1 per nail", time: "10m" },
-{ name: "Duck", price: "£5", time: "10m" },
-{ name: "Almond", price: "£5", time: "10m" },
-{ name: "Stilleto", price: "£5", time: "10m" },
-{ name: "Chrome", price: "£1 per nail", time: "5m" },
-];
-
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-function isInCart(service) {
-return cart.some(item => item.name === service.name);
-}
-
-function updateCartStorage() {
-localStorage.setItem("cart", JSON.stringify(cart));
-}
-
-const servicesContainer = document.getElementById("services-container");
-
-services.forEach(service => {
-const card = document.createElement("div");
-card.classList.add("service-card");
-card.innerHTML = `
-    <h2>${service.name}</h2>
-    <p>${service.price}</p>
-`;
-card.addEventListener("click", () => showPopup(service));
-servicesContainer.appendChild(card);
-});
-
-const popup = document.getElementById("popup");
-const popupName = document.getElementById("popup-name");
-const popupPrice = document.getElementById("popup-price");
-const popupTime = document.getElementById("popup-time");
-const popupClose = document.getElementById("popup-close");
-let addToBasketBtn = document.getElementById("add-to-basket");
-
-function showPopup(service) {
-popupName.textContent = service.name;
-popupPrice.textContent = `Price: ${service.price}`;
-popupTime.textContent = `Time: ${service.time}`;
-popup.classList.remove("hidden");
-
-popupClose.onclick = () => popup.classList.add("hidden");
-
-const inCart = isInCart(service);
-
-// Replace the button to remove previous event listeners
-const newBtn = addToBasketBtn.cloneNode(true);
-addToBasketBtn.parentNode.replaceChild(newBtn, addToBasketBtn);
-addToBasketBtn = newBtn;
-
-if (inCart){
-    addToBasketBtn.textContent = "Added ✔";
-}
-else{
-    addToBasketBtn.textContent = "Add to Basket";
-    
-}
-addToBasketBtn.textContent = inCart ? "✔ Added": "Add to Basket";
-addToBasketBtn.classList.toggle("added", inCart);
-
-addToBasketBtn.addEventListener("click", () => {
-    if (isInCart(service)) {
-    cart = cart.filter(item => item.name !== service.name);
-    } else {
-    cart.push(service);
-    }
-    updateCartStorage();
-
-
-    addToBasketBtn.textContent = isInCart(service) ? "✔ Added" : "Add to Basket";
-    addToBasketBtn.classList.toggle("added", isInCart(service));
-});
-}
-
-const input = document.getElementById("service-search");
-const suggestions = document.getElementById("suggestions");
-
-function findServiceByName(name) {
-return services.find(service => service.name.toLowerCase() === name.toLowerCase());
-}
-
-input.addEventListener("input", () => {
-const query = input.value.toLowerCase();
-suggestions.innerHTML = "";
-if (query.trim() === "") return;
-
-const matches = services.filter(service =>
-    service.name.toLowerCase().includes(query)
-);
-
-matches.forEach(service => {
-    const li = document.createElement("li");
-    li.textContent = service.name;
-    li.addEventListener("click", () => {
-    input.value = service.name;
-    suggestions.innerHTML = "";
-    showPopup(service);
+// Categorize your services
+const acrylicSets = [
+    { name: "Long set", price: "£40", time: "2h 15m" },
+    { name: "Medium set", price: "£35", time: "2h" },
+    { name: "Short set", price: "£30", time: "1h 30m" },
+    { name: "Acrylic overlay", price: "£30", time: "1h 30m" },
+    { name: "XL set", price: "£45", time: "1h 30m" },
+    { name: "XXL set", price: "£50", time: "1h 30m" },
+  ];
+  
+  const toes = [
+    { name: "Acrylic toes", price: "£25", time: "1h 45m" },
+    { name: "Gel toes", price: "£20", time: "1h 45m" },
+    { name: "Acrylic Big Toes", price: "£10", time: "1h 30m" },
+  ];
+  
+  const manicures = [
+    { name: "Biab", price: "£25", time: "1h 30m" },
+    { name: "Gel mani", price: "£25", time: "1h 15m" },
+  ];
+  
+  const soakOffs = [
+    { name: "Soak offs (my work)", price: "£10", time: "45m" },
+    { name: "Soak offs (not my work)", price: "£15", time: "45m" },
+    { name: "Infills", price: "£28", time: "1h 45m" },
+  ];
+  
+  const addOns = [
+    { name: "Freestyle", price: "£10", time: "1h" },
+    { name: "Recreation", price: "Email me", time: "1h" },
+    { name: "French nail", price: "£0", time: "15m" },
+    { name: "Plain colour", price: "£0", time: "10m" },
+    { name: "Charms", price: "£1 per nail", time: "—" },
+    { name: "Drawn designs", price: "£0.50–£1 per nail", time: "10m" },
+    { name: "Duck", price: "£5", time: "10m" },
+    { name: "Almond", price: "£5", time: "10m" },
+    { name: "Stilleto", price: "£5", time: "10m" },
+    { name: "Chrome", price: "£1 per nail", time: "5m" },
+  ];
+  
+  // Cart handling as before
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  
+  function updateCartStorage() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+  
+  // Utility to create service cards in a container
+  function createServiceCards(services, containerId, clickable=true) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = "";
+    services.forEach(service => {
+      const card = document.createElement("div");
+      card.classList.add("service-card");
+      card.setAttribute("tabindex", "0"); // accessible keyboard focus
+      card.innerHTML = `<h2>${service.name}</h2><h3>${service.price}</h3>`;
+      if (clickable) {
+        card.addEventListener("click", () => openServicePopup(service));
+        card.addEventListener("keypress", e => { if(e.key === "Enter") openServicePopup(service); });
+      }
+      container.appendChild(card);
     });
-    suggestions.appendChild(li);
-});
-
-if (matches.length === 0) {
-    const li = document.createElement("li");
-    li.textContent = "No matching services";
-    suggestions.appendChild(li);
-}
-});
-
-input.addEventListener("keydown", (e) => {
-if (e.key === "Enter") {
-    const match = findServiceByName(input.value.trim());
-    if (match) {
-    suggestions.innerHTML = "";
-    showPopup(match);
+  }
+  
+  // Show popup logic
+  const popup = document.getElementById("popup");
+  const popupName = document.getElementById("popup-name");
+  const popupPrice = document.getElementById("popup-price");
+  const popupTime = document.getElementById("popup-time");
+  const popupClose = document.getElementById("popup-close");
+  const addToBasketBtn = document.getElementById("add-to-basket");
+  const addonsFieldset = document.getElementById("addons-fieldset");
+  const addonsList = document.getElementById("addons-list");
+  const showMoreBtn = document.getElementById("show-more-addons");
+  
+  let currentService = null;
+  let selectedAddOns = new Set();
+  let addonsShownCount = 3; // Show 3 add-ons initially
+  
+  popupClose.addEventListener("click", () => {
+    popup.classList.add("hidden");
+    clearAddons();
+  });
+  
+  function clearAddons() {
+    addonsList.innerHTML = "";
+    selectedAddOns.clear();
+    addonsFieldset.classList.add("hidden");
+    showMoreBtn.classList.add("hidden");
+    addonsShownCount = 3;
+  }
+  
+  function openServicePopup(service) {
+    currentService = service;
+    popupName.textContent = service.name;
+    popupPrice.textContent = `Price: ${service.price}`;
+    popupTime.textContent = `Time: ${service.time}`;
+    
+    // Show add-ons ONLY for acrylicSets, toes, manicures
+    if (
+      acrylicSets.find(s => s.name === service.name) ||
+      toes.find(s => s.name === service.name) ||
+      manicures.find(s => s.name === service.name)
+    ) {
+      renderAddons();
+      addonsFieldset.classList.remove("hidden");
+    } else {
+      clearAddons();
     }
-}
-});
-
-document.addEventListener("click", (e) => {
-if (!input.contains(e.target) && !suggestions.contains(e.target)) {
-    suggestions.innerHTML = "";
-    const match = findServiceByName(input.value.trim());
-    if (match) showPopup(match);
-}
-});
-
-// When cart icon is clicked
-const cartIcon = document.getElementById("cart-icon");
-cartIcon.addEventListener("click", () => {
-const cartJSON = JSON.stringify(cart);
-console.log("Cart data to send/use:", cartJSON);
-
-// You can redirect or send this to backend or fill a hidden input field
-// Example: window.location.href = "/cart?data=" + encodeURIComponent(cartJSON);
-});
-
-// Optional: Display cart contents (for cart page)
-function updateCartView() {
-const cartList = document.getElementById("cart-list");
-const totalPriceEl = document.getElementById("total-price");
-const totalTimeEl = document.getElementById("total-time");
-
-if (!cartList || !totalPriceEl || !totalTimeEl) return;
-
-cartList.innerHTML = "";
-let totalMinutes = 0;
-let totalPrice = 0;
-
-cart.forEach(item => {
-    const li = document.createElement("li");
-    li.textContent = `${item.name} - ${item.price} - ${item.time}`;
-    cartList.appendChild(li);
-
-    const match = item.time.match(/(\d+)h(?:\s*(\d+)m)?/);
-    if (match) {
-    const hours = parseInt(match[1]) || 0;
-    const mins = parseInt(match[2]) || 0;
-    totalMinutes += hours * 60 + mins;
+    
+    popup.classList.remove("hidden");
+  }
+  
+  // Render add-ons checkboxes with show more toggle
+  function renderAddons() {
+    addonsList.innerHTML = "";
+  
+    let toShow = addOns.slice(0, addonsShownCount);
+    toShow.forEach(addon => {
+      const id = `addon-${addon.name.replace(/\s+/g, '-')}`;
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = id;
+      checkbox.name = "addons";
+      checkbox.value = addon.name;
+      
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked) selectedAddOns.add(addon);
+        else selectedAddOns.delete(addon);
+      });
+      
+      const label = document.createElement("label");
+      label.htmlFor = id;
+      label.textContent = `${addon.name} (${addon.price})`;
+      
+      const wrapper = document.createElement("div");
+      wrapper.classList.add("addon-option");
+      wrapper.appendChild(checkbox);
+      wrapper.appendChild(label);
+      addonsList.appendChild(wrapper);
+    });
+  
+    // Show "Show more" button if there are more add-ons
+    if (addOns.length > addonsShownCount) {
+      showMoreBtn.classList.remove("hidden");
+      showMoreBtn.textContent = "Show more";
+    } else {
+      showMoreBtn.classList.add("hidden");
     }
-
-    const priceNum = parseFloat(item.price.replace(/[^\d.]/g, ""));
-    if (!isNaN(priceNum)) totalPrice += priceNum;
-});
-
-totalPriceEl.textContent = `Total Price: £${totalPrice.toFixed(2)}`;
-totalTimeEl.textContent = `Total Time: ${Math.floor(totalMinutes / 60)}h ${totalMinutes % 60}m`;
-}
+  }
+  
+  showMoreBtn.addEventListener("click", () => {
+    addonsShownCount = addOns.length; // Show all
+    renderAddons();
+    showMoreBtn.classList.add("hidden");
+  });
+  
+  // Add to basket with add-ons
+  addToBasketBtn.addEventListener("click", () => {
+    if (!currentService) return;
+    
+    // Create a combined service with add-ons included in name and price/time calculation
+    const combinedName = `${currentService.name} + ${[...selectedAddOns].map(a => a.name).join(", ")}`;
+    
+    // Combine prices and times - for simplicity, just keep main price and list add-ons in name
+    // You can extend to parse and sum price/time if you want
+    
+    const combinedService = {
+      name: combinedName,
+      price: currentService.price,
+      time: currentService.time,
+    };
+    
+    cart.push(combinedService);
+    updateCartStorage();
+    
+    alert("Added to basket: " + combinedName);
+    popup.classList.add("hidden");
+    clearAddons();
+  });
+  
+  // Initialize all sections
+  createServiceCards(acrylicSets, "acrylic-sets-container");
+  createServiceCards(toes, "toes-container");
+  createServiceCards(manicures, "manicures-container");
+  createServiceCards(soakOffs, "soak-offs-container");
+  
+  // Optional: You can add styles for mobile and popup in CSS
+  
